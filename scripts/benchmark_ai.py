@@ -7,6 +7,8 @@ import os
 import json
 import time
 import contextlib
+import logging
+logging.basicConfig()
 from openassessment.assessment.worker.algorithm import AIAlgorithm, EaseAIAlgorithm
 
 
