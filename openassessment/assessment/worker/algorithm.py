@@ -236,12 +236,20 @@ class EaseAIAlgorithm(AIAlgorithm):
             # to strip out non-ASCII chars.
             essay_set = cache.get('grading_essay_set')
             if essay_set is None:
-                essay_set = EssaySet(essay_type="test")
+                # TRY EXCEPT BLOCK USED TO ACCEPT EASE OR EASIER
+                try:
+                    essay_set = EssaySet(essay_type="test")
+                except TypeError:
+                    essay_set = EssaySet(essaytype="test")
                 essay_set.add_essay(text.encode('ascii', 'ignore'), 0)
                 cache['grading_essay_set'] = essay_set
 
             # Extract features from the text
-            features = feature_extractor.generate_features(essay_set)
+            # TRY EXCEPT BLOCK USED TO ACCEPT EASE OR EASIER
+            try:
+                features = feature_extractor.generate_features(essay_set)
+            except AttributeError:
+                features = feature_extractor.gen_feats(essay_set)
 
             # Predict a score
             return int(score_classifier.predict(features)[0])
@@ -289,7 +297,6 @@ class EaseAIAlgorithm(AIAlgorithm):
             ).format(traceback=traceback.format_exc())
             raise TrainingError(msg)
 
-        #TODO Ask Will about this!!!
         if not results.get('success', True):
             msg = (
                 u"Errors occurred while training classifiers "
