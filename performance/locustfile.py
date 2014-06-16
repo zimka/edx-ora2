@@ -23,27 +23,18 @@ class OpenAssessmentPage(object):
         'rubric_options', 'render_step_handlers'
     ])
     PROBLEMS = {
-        'peer_then_self': ProblemFixture(
-            course_id="ora2/1/1",
-            base_url= "courses/ora2/1/1/courseware/efa85eb090164a208d772a344df7181d/69f15a02c5af4e95b9c5525771b8f4ee/",
-            base_handler_url="courses/ora2/1/1/xblock/i4x:;_;_ora2;_1;_openassessment;_0e2bbf6cc89e45d98b028fa4e2d46314/handler/",
-            rubric_options={
-                'Ideas': ['Poor', 'Fair', 'Good'],
-                'Content': ['Poor', 'Fair', 'Good', 'Excellent']
-            },
-            render_step_handlers=[
-                'render_submission', 'render_peer_assessment',
-                'render_self_assessment', 'render_grade',
-            ]
-        ),
-
         'example_based': ProblemFixture(
-            course_id="ora2/1/1",
-            base_url="courses/ora2/1/1/courseware/efa85eb090164a208d772a344df7181d/fb039ef8a34641509190918ada79122a/",
-            base_handler_url="courses/ora2/1/1/xblock/i4x:;_;_ora2;_1;_openassessment;_8df3fa4de26747e0ad99b4157e45f5e5/handler/",
+            course_id="ora2/2/2",
+            base_url="courses/ora2/2/2/courseware/f9b93ea79bde48f2b1ba3af4c266eee5/3ea9cec511bb476dad832d8ee0d8d16a/",
+            base_handler_url="courses/ora2/2/2/xblock/i4x:;_;_ora2;_2;_openassessment;_c4a52fe0b6ec4d20a7ac973e143b70eb/handler/",
             rubric_options={
-                'Ideas': ['Bad', 'Good'],
-                'Content': ['Bad', 'Good']
+                'Intelligibility': ['Needs work', 'Acceptable', 'Good', 'Excellent'],
+                'Clarity': ['Needs work', 'Acceptable', 'Good', 'Excellent'],
+                'Understanding': ['Needs work', 'Acceptable', 'Good', 'Excellent'],
+                'Support': ['Needs work', 'Acceptable', 'Good', 'Excellent'],
+                'Depth': ['Needs work', 'Acceptable', 'Good', 'Excellent'],
+                'Interpretation': ['Needs work', 'Acceptable', 'Good', 'Excellent'],
+                'Comparison': ['Needs work', 'Acceptable', 'Good', 'Excellent']
             },
             render_step_handlers=['render_submission', 'render_grade']
         )
@@ -162,6 +153,7 @@ class OpenAssessmentPage(object):
             'Content-type': 'application/json',
             'Accept': 'application/json',
             'X-CSRFToken': self.client.cookies.get('csrftoken', ''),
+            'Referer': "https://courses.dev.edx.org/{}".format(self.problem_fixture.base_url)
         }
 
 
@@ -179,31 +171,6 @@ class OpenAssessmentTasks(TaskSet):
         self.page = None
 
     @task
-    def peer_and_self(self):
-        """
-        Test the peer-->self workflow.
-        """
-        if self.page is None:
-            self.page = OpenAssessmentPage(self.client, 'peer_then_self')  # pylint: disable=E1101
-            self.page.log_in()
-
-        if not self.page.logged_in:
-            self.page.log_in()
-        else:
-            self._submit_response()
-
-            # Randomly peer/self assess or log in as a new user.
-            # This should be sufficient to get students through
-            # the entire flow (satisfying the requirements for peer assessment).
-            action = random.randint(0, 100)
-            if action <= 80:
-                continue_grading = random.randint(0, 10) < 4
-                self.page.peer_assess(continue_grading=continue_grading)
-                self.page.self_assess()
-            else:
-                self.page.log_in()
-
-    @task
     def example_based(self):
         """
         Test example-based assessment only.
@@ -216,8 +183,7 @@ class OpenAssessmentTasks(TaskSet):
             self.page.log_in()
         else:
             self._submit_response()
-            if random.randint(0, 100) < 50:
-                self.page.log_in()
+            self.page.log_in()
 
     def _submit_response(self):
         """
