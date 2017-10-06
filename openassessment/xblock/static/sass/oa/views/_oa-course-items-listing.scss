@@ -69,15 +69,36 @@
   }
 
   .backgrid {
-    .peer, .self, .staff, .waiting {
-      width: 65px;
+    .parent_name{
+      width: 10%;
     }
-    .training {
-      width: 90px;
+    .name{
+      width: 10%;
     }
     .total {
-      width: 150px;
+      width: 10%;
     }
+    .training {
+      width: 10%;
+    }
+    .peer{
+      width: 15%;
+    }
+
+    .self{
+      width: 10%;
+    }
+    .staff{
+      width: 10%;
+    }
+    .waiting{
+      width:10%;
+    }
+    .done{
+      width: 15%;
+    }
+
+
     .done {
       width: 190px;
     }
