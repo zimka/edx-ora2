@@ -725,6 +725,8 @@ msgid ""
 "This assignment has closed. One or more deadlines for this assignment have "
 "passed. You will receive an incomplete grade for this assignment."
 msgstr ""
+"Это задание закрыто. Один или более сроков сдачи уже истекли. "
+"Вы получите неполную оценку за это задание."
 
 #: openassessment/templates/openassessmentblock/message/oa_message_complete.html:8
 msgid ""
@@ -904,6 +906,9 @@ msgid ""
 "                        <span class=\"date ora-datetime\" data-datetime=\"%(due_date)s\" data-string=\"due {date} (in %(time_until)s)\" data-timezone=\"%(user_timezone)s\" data-language=\"%(user_language)s\"></span>\n"
 "                        "
 msgstr ""
+"\n"
+"                        <span class=\"date ora-datetime\" data-datetime=\"%(due_date)s\" data-string=\"до {date} (осталось %(time_until)s)\" data-timezone=\"%(user_timezone)s\" data-language=\"%(user_language)s\"></span>\n"
+"                        "
 
 #: openassessment/templates/openassessmentblock/peer/oa_peer_assessment.html:44
 #, python-format
@@ -957,6 +962,9 @@ msgid ""
 "longer complete peer assessments or continue with this assignment, and you "
 "will receive a grade of Incomplete."
 msgstr ""
+"Срок сдачи для этого шага истек, теперь он закрыт. Вы не можете "
+"завершить взаимное оценивание или продолжить над ним работу, и вы "
+"получите оценку 'Не завершено'."
 
 #: openassessment/templates/openassessmentblock/peer/oa_peer_complete.html:13
 msgid "Completed"
@@ -1045,14 +1053,14 @@ msgstr "После того, как вы отправите свой ответ 
 
 #: openassessment/templates/openassessmentblock/response/oa_response.html:67
 msgid "The prompt for this section"
-msgstr ""
+msgstr "Подсказка для этой секции"
 
 #: openassessment/templates/openassessmentblock/response/oa_response.html:80
 #: openassessment/templates/openassessmentblock/response/oa_response_graded.html:28
 #: openassessment/templates/openassessmentblock/response/oa_response_submitted.html:49
 #: openassessment/templates/openassessmentblock/self/oa_self_assessment.html:51
 msgid "Your response"
-msgstr ""
+msgstr "Ваш ответ"
 
 #: openassessment/templates/openassessmentblock/response/oa_response.html:88
 msgid "Enter your response to the question above."
@@ -1147,6 +1155,10 @@ msgid ""
 " a grade of Incomplete. If you saved but did not submit a response, the "
 "response appears in the course records."
 msgstr ""
+"Срок сдачи для этого шага истек, теперь он закрыт. Вы не можете "
+"отправить ответ или продолжить над ним работу, и вы "
+"получите оценку 'Не завершено'. Если вы сохранили, но не отправили "
+"ответ, он будет учтен при оценивании."
 
 #: openassessment/templates/openassessmentblock/response/oa_response_graded.html:18
 #: openassessment/templates/openassessmentblock/response/oa_response_submitted.html:18
@@ -1217,6 +1229,9 @@ msgid ""
 "                            <span class=\"date ora-datetime\" data-datetime=\"%(due_date)s\" data-string=\"due {date} (in %(time_until)s)\" data-timezone=\"%(user_timezone)s\" data-language=\"%(user_language)s\"></span>\n"
 "                        "
 msgstr ""
+"\n"
+"                            <span class=\"date ora-datetime\" data-datetime=\"%(due_date)s\" data-string=\"до {date} (осталось %(time_until)s)\" data-timezone=\"%(user_timezone)s\" data-language=\"%(user_language)s\"></span>\n"
+"                        "
 
 #: openassessment/templates/openassessmentblock/self/oa_self_assessment.html:72
 msgid "Submit your assessment"
@@ -1228,6 +1243,9 @@ msgid ""
 "longer complete a self assessment or continue with this assignment, and you "
 "will receive a grade of Incomplete."
 msgstr ""
+"Срок сдачи для этого шага истек, теперь он закрыт. Вы не можете "
+"завершить само оценивание или продолжить над ним работу, и вы "
+"получите оценку 'Не завершено'."
 
 #: openassessment/templates/openassessmentblock/staff/oa_staff_grade.html:13
 #: openassessment/xblock/grade_mixin.py:345
@@ -1624,6 +1642,9 @@ msgid ""
 "longer continue with this assignment, and you will receive a grade of "
 "Incomplete."
 msgstr ""
+"Срок сдачи для этого шага истек, теперь он закрыт. Вы не можете "
+"продолжить над ним работу, и вы "
+"получите оценку 'Не завершено'."
 
 #: openassessment/templates/openassessmentblock/student_training/student_training_error.html:18
 msgid "Error Loading Learner Training Examples"
