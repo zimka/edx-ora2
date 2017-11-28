@@ -14,11 +14,13 @@ if (typeof OpenAssessment == "undefined" || !OpenAssessment) {
 /* jshint ignore:end */
 
 // Stub gettext if the runtime doesn't provide it
+/*
 if (typeof window.gettext === 'undefined') {
     window.gettext = function(text) { return text; };
 }
 
 // If ngettext isn't found (workbench, testing, etc.), return the simplistic english version
+
 if (typeof window.ngetgext === 'undefined') {
     window.ngettext = function(singularText, pluralText, n) {
         if (n > 1) {
@@ -28,7 +30,7 @@ if (typeof window.ngetgext === 'undefined') {
         }
     };
 }
-
+*/
 // Stub event logging if the runtime doesn't provide it
 if (typeof window.Logger === 'undefined') {
     window.Logger = {
