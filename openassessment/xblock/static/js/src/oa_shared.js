@@ -13,6 +13,7 @@ if (typeof OpenAssessment == "undefined" || !OpenAssessment) {
 }
 /* jshint ignore:end */
 
+/*
 // Stub gettext if the runtime doesn't provide it
 if (typeof window.gettext === 'undefined') {
     window.gettext = function(text) { return text; };
@@ -28,7 +29,7 @@ if (typeof window.ngetgext === 'undefined') {
         }
     };
 }
-
+*/
 // Stub event logging if the runtime doesn't provide it
 if (typeof window.Logger === 'undefined') {
     window.Logger = {

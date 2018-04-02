@@ -48,6 +48,9 @@ if (typeof OpenAssessment.Server === "undefined" || !OpenAssessment.Server) {
                     type: "POST",
                     dataType: "html"
                 }).done(function(data) {
+                    defer.done(function(){
+                        window.MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+                    });
                     defer.resolveWith(view, [data]);
                 }).fail(function() {
                     defer.rejectWith(view, [gettext('This section could not be loaded.')]);
