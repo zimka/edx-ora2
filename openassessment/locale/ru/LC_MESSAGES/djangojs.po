@@ -275,7 +275,7 @@ msgstr "Недопустимый тип файла"
 #: openassessment/xblock/static/js/src/lms/oa_response.js:632
 #: openassessment/xblock/static/js/src/lms/oa_response.js:638
 msgid "Describe "
-msgstr "Описание"
+msgstr "Описание "
 
 #: openassessment/xblock/static/js/openassessment-lms.min.js:2
 #: openassessment/xblock/static/js/src/lms/oa_response.js:632

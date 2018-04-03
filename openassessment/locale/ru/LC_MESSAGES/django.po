@@ -173,6 +173,8 @@ msgid ""
 "extensions that you specify below. (Use the Select Custom File Types option "
 "with caution.)"
 msgstr ""
+"Укажите типы файлов, доступные студентам для загрузки. Изображения - это файлы"
+"форматов JPG, GIF, или PNG. Также вы можете в явном виде задать допустимые разрешения файлов."
 
 #: openassessment/templates/openassessmentblock/edit/oa_edit.html:143
 msgid "File Types"
@@ -1038,6 +1040,8 @@ msgid ""
 "you've completed all the steps for this problem and your peers have assessed"
 " your response."
 msgstr ""
+"Все доступные работы уже были оценены. Проверьте позже, не появились ли новые работы. "
+"Вы получите оценку по завершению всех шагов."
 
 #: openassessment/templates/openassessmentblock/response/oa_response.html:37
 #: openassessment/templates/openassessmentblock/self/oa_self_assessment.html:39
@@ -1182,18 +1186,18 @@ msgstr "Завершено"
 #: openassessment/templates/openassessmentblock/response/oa_response_submitted.html:49
 #: openassessment/templates/openassessmentblock/self/oa_self_assessment.html:51
 msgid "Your response"
-msgstr ""
+msgstr "Ваш ответ"
 
 #: openassessment/templates/openassessmentblock/response/oa_response_graded.html:31
 #: openassessment/templates/openassessmentblock/response/oa_response_submitted.html:52
 msgid "Your Uploaded Files"
-msgstr ""
+msgstr "Ваши файлы"
 
 #: openassessment/templates/openassessmentblock/response/oa_response_submitted.html:30
 msgid ""
 "Your response has been submitted. You will receive your grade after all "
 "steps are complete and your response is fully assessed."
-msgstr ""
+msgstr "Ваш ответ отправлен. Вы получите оценку после завершения всех шагов выполнения задания."
 
 #: openassessment/templates/openassessmentblock/response/oa_response_submitted.html:32
 #, python-format
@@ -1593,7 +1597,7 @@ msgid ""
 "\n"
 "                          In Progress (%(current_progress_num)s of %(training_available_num)s)\n"
 "                      "
-msgstr ""
+msgstr "\nВ процессе (%(current_progress_num)s из %(training_available_num)s)\n "
 
 #: openassessment/templates/openassessmentblock/student_training/student_training.html:57
 #: openassessment/templates/openassessmentblock/student_training/student_training.html:65
@@ -1945,19 +1949,19 @@ msgstr "Ошибка при обновлении конфигурации XBlock
 
 #: openassessment/xblock/studio_mixin.py:200
 msgid "Error: both text and file upload responses can't be disabled"
-msgstr ""
+msgstr "Ошибка: нельзя одновременно отключить загрузку файлов и текст"
 
 #: openassessment/xblock/studio_mixin.py:203
 msgid ""
 "Error: in case if text response is disabled file upload response must be "
 "required"
-msgstr ""
+msgstr "Ошибка: в случае, если текстовый ответ отключен, должна быть обязательной загрузка файлов"
 
 #: openassessment/xblock/studio_mixin.py:206
 msgid ""
 "Error: in case if file upload response is disabled text response must be "
 "required"
-msgstr ""
+msgstr "Ошибка: в случае, если загрузка файлов отключена, текстовый ввод должен быть обязательным"
 
 #: openassessment/xblock/studio_mixin.py:229
 msgid ""
