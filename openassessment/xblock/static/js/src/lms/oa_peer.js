@@ -67,7 +67,8 @@ OpenAssessment.PeerView.prototype = {
 
         view.continueAssessmentEnabled(false);
         view.isRendering = true;
-        this.server.renderContinuedPeer().done(
+        var target_submission = $('.target--submission--continue--grading').val();
+        this.server.renderContinuedPeer(target_submission).done(
             function(html) {
                 // Load the HTML and install event handlers
                 $('.step--peer-assessment', view.element).replaceWith(html);

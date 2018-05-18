@@ -144,6 +144,7 @@ class PeerAssessmentMixin(object):
         if "peer-assessment" not in self.assessment_steps:
             return Response(u"")
         continue_grading = data.params.get('continue_grading', False)
+        self.set_target_submission(continue_grading, data.params.get('target_submission', None))
         path, context_dict = self.peer_path_and_context(continue_grading)
 
         # For backwards compatibility, if no feedback default text has been
@@ -238,6 +239,7 @@ class PeerAssessmentMixin(object):
                 # Determine if file upload is supported for this XBlock.
                 context_dict["file_upload_type"] = self.file_upload_type
                 context_dict["peer_file_urls"] = self.get_download_urls_from_submission(peer_sub)
+                context_dict["submission_id"] = peer_sub['uuid']
             else:
                 path = 'openassessmentblock/peer/oa_peer_turbo_mode_waiting.html'
         elif reason == 'due' and problem_closed:
@@ -317,3 +319,39 @@ class PeerAssessmentMixin(object):
         uuid_server = submission.get('uuid', None)
         uuid_client = data.get('submission_uuid', None)
         return uuid_server, uuid_client
+
+    def set_target_submission(self, continue_grading, target_submission_uuid):
+        """
+        Sets submission with given target_submission_uuid as active if possible.
+        Works in 'continue grading' mode only.
+
+        Args:
+            continue_grading (bool): is peer review happens in continue_grading mode
+            target_submission_uuid (str): submission which scorer would like to grade
+        Returns: None
+        """
+        if not continue_grading:
+            return
+        if not target_submission_uuid:
+            return
+        student_item = self.get_student_item_dict()
+        if not student_item:
+            return
+
+        workflow = self.get_workflow_info()
+
+        if workflow.get("status") == "canceled":
+            return
+
+        pw_item = peer_api.set_target_submission_for_scorer(workflow['submission_uuid'], target_submission_uuid)
+        if pw_item:
+            self.runtime.publish(
+                self,
+                "openassessmentblock.set_target_submission",
+                {
+                    "requesting_student_id": student_item["student_id"],
+                    "course_id": student_item["course_id"],
+                    "item_id": student_item["item_id"],
+                    "target_submission": target_submission_uuid
+                }
+            )

@@ -994,3 +994,17 @@ def on_cancel(submission_uuid):
         )
         logger.exception(error_message)
         raise PeerAssessmentInternalError(error_message)
+
+
+def set_target_submission_for_scorer(scorer_submission_uuid, target_submission_uuid):
+    """
+    Sets submission with target_submission_uuid as currently active
+    for peer workflow with submission uuid equals to scorer_submission_uuid
+    """
+    scorer_workflow = PeerWorkflow.objects.get(submission_uuid=scorer_submission_uuid)
+    target_submission_uuid = scorer_workflow.get_submission_for_review_with_target(target_submission_uuid)
+
+    if not target_submission_uuid:
+        return None
+    # TODO: should we move currently active submission?
+    return PeerWorkflow.create_item(scorer_workflow, target_submission_uuid)

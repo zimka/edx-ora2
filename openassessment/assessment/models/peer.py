@@ -322,6 +322,68 @@ class PeerWorkflow(models.Model):
             logger.exception(error_message)
             raise PeerAssessmentInternalError(error_message)
 
+    def get_submission_for_review_with_target(self, target_submission_uuid):
+        """
+        Finds a submission for peer assessment with target_submission_uuid if possible.
+        If there is no submission with such uuid, or it is already completed or
+        cancelled, or it was already assessed by scorer(self) or target uuid is
+        is self.submission_uuid, we return None. Method allows to get submission
+        even when submission has more active peers than necessary for completion.
+        Args:
+            target_submission_uuid (str): anonymous student id
+        Returns:
+            submission_uuid (str): returns back target_submission_uuid if valid else None.
+
+        Raises:
+            PeerAssessmentInternalError: Raised when there is an error retrieving
+                the workflows or workflow items for this request.
+
+        """
+        if self.submission_uuid == target_submission_uuid:
+            return None
+
+        # This will submission (via PeerWorkflow) in this course / question that:
+        #  1) Has target uuid
+        #  2) Does not have enough completed assessments
+        #  3) Is not something you have already scored.
+        #  4) Has not been cancelled.
+
+        try:
+            peer_workflows = list(PeerWorkflow.objects.raw(
+                "select pw.id, pw.submission_uuid "
+                "from assessment_peerworkflow pw "
+                "where pw.item_id=%s "
+                "and pw.course_id=%s "
+                "and pw.submission_uuid=%s "
+                "and pw.grading_completed_at is NULL "
+                "and pw.cancelled_at is NULL "
+                "and pw.id not in ("
+                "   select pwi.author_id "
+                "   from assessment_peerworkflowitem pwi "
+                "   where pwi.scorer_id=%s "
+                "   and pwi.assessment_id is not NULL "
+                ") "
+                "order by pw.created_at, pw.id "
+                "limit 1; ",
+                [
+                    self.item_id,
+                    self.course_id,
+                    target_submission_uuid,
+                    self.id,
+                ]
+            ))
+
+            if not peer_workflows:
+                return None
+            return peer_workflows[0].submission_uuid
+        except DatabaseError:
+            error_message = (
+                u"An internal error occurred while retrieving a peer submission "
+                u"for learner {}"
+            ).format(self)
+            logger.exception(error_message)
+            raise PeerAssessmentInternalError(error_message)
+
     def get_submission_for_over_grading(self):
         """
         Retrieve the next submission uuid for over grading in peer assessment.

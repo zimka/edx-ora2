@@ -73,7 +73,7 @@ if (typeof OpenAssessment.Server === "undefined" || !OpenAssessment.Server) {
          * @returns {promise} A JQuery promise, which resolves with the HTML of the rendered peer
          *     assessment section or fails with an error message.
          */
-        renderContinuedPeer: function() {
+        renderContinuedPeer: function(target_submission) {
             var view = this;
             var url = this.url('render_peer_assessment');
 
@@ -82,7 +82,7 @@ if (typeof OpenAssessment.Server === "undefined" || !OpenAssessment.Server) {
                     url: url,
                     type: "POST",
                     dataType: "html",
-                    data: {continue_grading: true}
+                    data: {continue_grading: true, target_submission: target_submission}
                 }).done(function(data) {
                     defer.resolveWith(view, [data]);
                 }).fail(function() {

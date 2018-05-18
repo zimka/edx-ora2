@@ -36,6 +36,17 @@
                 </div>
 
                 <ul class="list list--actions">
+                    <li>
+                        {% trans "To check specific submission enter it's ID." %}
+                        {% trans "You will get this submission if it is possible." %}
+                    </li>
+                    <li>
+                        <label class="label">
+                            <input type="text" maxlength="36" size="36" class="target--submission--continue--grading"
+                            placeholder='{% trans "Enter submission ID" %}'
+                            >
+                        </label>
+                    </li>
                     <li class="list--actions__item">
                         <button type="submit" class="action action--submit action--continue--grading">
                             {%  trans "Continue Assessing Peers" %}
